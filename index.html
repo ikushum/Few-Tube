@@ -8,16 +8,19 @@
 
 <body>
 	<div id="app">
-		<v-app>
-			<v-content>
-				<v-container>
-					<v-flex class="display-1">{{message}}</v-flex>
-				</v-container>
-			</v-content>
+	<v-app>
+		<v-container fill-height>
+		    <v-layout>
+		      <v-flex offset-xs2>
+		    	<div id="player"></div>
+		      </v-flex>
+		    </v-layout>
+		</v-container>
 	</v-app>
 	</div>
 </body>
 
+<script src="https://www.youtube.com/iframe_api"></script>
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
 <script src="https://unpkg.com/vuetify/dist/vuetify.js"></script>
 <script type="text/javascript" src="javascript.js"></script>
