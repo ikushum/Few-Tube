@@ -7,16 +7,20 @@ var app = new Vue({
   },
 	methods: {
 		onPlayerReady(event) {
-		    event.target.playVideo();
+		    event.target.playVideo()
 		},
 		onPlayerStateChange(event) {
-			if (event.data == YT.PlayerState.PLAYING && !done) {
-			  setTimeout(this.stopVideo, 6000);
-			  this.done = true;
+			if(event.data === YT.PlayerState.ENDED && !this.done) {
+				this.stopVideo()	
+				this.done = true			
+			}
+			if (event.data == YT.PlayerState.PLAYING && !this.done) {
+			  setTimeout(this.stopVideo, 6000)
+			  this.done = true
 			}
 		},
 		stopVideo() {
-			this.player.stopVideo();
+			this.player.stopVideo()
 		}					
 	},
   created() {
