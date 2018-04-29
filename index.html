@@ -15,9 +15,20 @@
 				<v-flex xs5 offset-xs3 class="text-xs-center">
 					<img class="logo mb-3" src="https://upload.wikimedia.org/wikipedia/commons/3/34/YouTube_logo_%282017%29.png">
 		    		<v-layout class=mb-4>
-			    		<v-text-field hide-details prepend-icon="videocam"  label="Search Video"></v-text-field>	
+			    		<v-text-field hide-details 
+			    					  prepend-icon="videocam"
+			    					  label="Search Video"
+			    					  v-model="searchKeyword"
+			    		></v-text-field>	
 			    		<v-btn flat class="red--text mt-4" @click="search()"> Search </v-btn>	
 	    		    </v-layout>
+
+				    <v-flex>
+				      <v-flex v-for="video in searchResults" :key="video.id.video" xs12>
+				      	<img :src="video.snippet.thumbnails.default.url">
+				      	<span class="headline">{{video.snippet.title}}</span>
+				      </v-flex>
+				    </v-layout>	    		    
 
 			    <v-layout>
 			      <v-flex xs12>

@@ -1,12 +1,15 @@
 var app = new Vue({
-  el: '#app',
-  data: {
-    message: 'Hello Nepal!',
-    player: null,
-    done: false,
-    showPlayer: false,
-    searchKeyword: ''
-  },
+	el: '#app',
+	data: function () {
+		return {
+			player: null,
+			done: false,
+			showPlayer: false,
+			searchKeyword: '',
+			searchResults: [],
+			showSearchResults: false
+		}
+	},
 	methods: {
 		enablePlayer () {
 			this.showPlayer = true
@@ -52,6 +55,7 @@ var app = new Vue({
 			this.player.stopVideo()
 		},
 		search() {			
+			let self = this
 			let params = {
 				'maxResults': '25',
 				'part': 'snippet',
@@ -66,7 +70,8 @@ var app = new Vue({
 			  headers: {'X-ApiKey': 'AIzaSyARPz0pMc-wmIlVwCtFF26pIOBRX_5oYik'}
 			})			
 			  .then(function (response) {
-			    ;
+			  	self.showSearchResults = true
+			    self.searchResults = response.data.items
 			  })
 			  .catch(function (error) {
 			    console.log(error);
