@@ -73,6 +73,11 @@ var app = new Vue({
 			this.stopVideo()		
 			this.player = null	
 		}				
+	},
+	watch: {
+		searchKeyword(val) {
+			this.search()
+		}		
 	}
 })
 
