@@ -46,13 +46,12 @@ var app = new Vue({
 				'part': 'snippet',
 				'q': this.searchKeyword,
 				'type': '',
-				'key': 'AIzaSyARPz0pMc-wmIlVwCtFF26pIOBRX_5oYik'	
+				'key': 'YOUR_API_KEY'	
              }
 			axios({
 			  method: 'get',
 			  url: 'https://www.googleapis.com/youtube/v3/search',
-			  params: params,
-			  headers: {'X-ApiKey': 'AIzaSyARPz0pMc-wmIlVwCtFF26pIOBRX_5oYik'}
+			  params: params
 			})			
 			  .then(function (response) {
 			  	self.showSearchResults = true
