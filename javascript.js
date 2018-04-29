@@ -3,7 +3,6 @@ var app = new Vue({
 	data: function () {
 		return {
 			player: null,
-			done: false,
 			showPlayer: false,
 			searchKeyword: '',
 			searchResults: [],
@@ -30,9 +29,8 @@ var app = new Vue({
 		    event.target.playVideo()
 		},
 		onPlayerStateChange(event) {
-			if(event.data === YT.PlayerState.ENDED && !this.done) {
-				this.stopVideo()	
-				this.done = true			
+			if(event.data === YT.PlayerState.ENDED) {
+				this.stopVideo()			
 			}
 		},
 		stopVideo() {
@@ -66,6 +64,7 @@ var app = new Vue({
 		showVideo(video) {
 			this.videoDialog = true
 			this.currentVideo = video
+			this.player=null
 			this.enablePlayer()
 		},
 		hideVideo() {
