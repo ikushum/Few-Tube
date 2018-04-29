@@ -1,6 +1,7 @@
 <html>
 
 <head>
+	<title> Few Tube </title>
 	<link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
 	<link href="https://unpkg.com/vuetify/dist/vuetify.min.css" rel="stylesheet">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">	
@@ -12,30 +13,58 @@
 		<v-container fill-height>
 
 			<v-flex>
-				<v-flex xs5 offset-xs3 class="text-xs-center">
+				<v-flex xs12 md5 offset-xs1 offset-md3 class="text-xs-center">
 					<img class="logo mb-3" src="https://upload.wikimedia.org/wikipedia/commons/3/34/YouTube_logo_%282017%29.png">
-		    		<v-layout class=mb-4>
+		    		<v-layout row class=mb-4>
 			    		<v-text-field hide-details 
 			    					  prepend-icon="videocam"
 			    					  label="Search Video"
 			    					  v-model="searchKeyword"
+			    					  :loading="loading"
 			    		></v-text-field>	
-			    		<v-btn flat class="red--text mt-4" @click="search()"> Search </v-btn>	
+			    		<v-btn flat class="red--text mt-4" @click="search()"> Search </v-btn>			    		
 	    		    </v-layout>
 
-				    <v-flex>
-				      <v-flex v-for="video in searchResults" :key="video.id.video" xs12>
-				      	<img :src="video.snippet.thumbnails.default.url">
-				      	<span class="headline">{{video.snippet.title}}</span>
-				      </v-flex>
-				    </v-layout>	    		    
+    		   	  	<v-progress-circular v-if="loading" indeterminate color="red"></v-progress-circular>	
 
+		    </v-flex>
+
+		    <v-flex>
+		      <v-layout xs12 class="py-3 grey lighten-4 my-3" v-for="video in searchResults" :key="video.id.video" xs12>
+		      	<img @click="showVideo(video)" class="thumbnails" :src="video.snippet.thumbnails.medium.url">
+		      	<v-flex class="pa-3">
+		      		<v-flex xs9 class="headline"><div @click="showVideo(video)">{{video.snippet.title}}</div></v-flex>
+		      		<v-flex class="subheading">Posted by: {{video.snippet.channelTitle}}</v-flex>
+		      		<v-flex xs6 class=caption> {{video.snippet.description}}</v-flex>
+		      	</v-flex>
+		      </v-layout>
+		    </v-flex>		
+
+
+      <v-dialog
+        v-model="videoDialog"
+        fullscreen
+        hide-overlay
+        transition="dialog-bottom-transition"
+        scrollable
+      >
+      	<v-card>
+          <v-toolbar card dark color="primary">
+            <v-btn icon @click.native="hideVideo()" dark>
+              <v-icon>close</v-icon>
+            </v-btn>
+            <v-toolbar-title>{{currentVideo.snippet.title}}</v-toolbar-title>
+           </v-toolbar>  
+           <v-card-text>
 			    <v-layout>
 			      <v-flex xs12>
 			    	<div id="player"></div>
 			      </v-flex>
-			    </v-layout>
-		    </v-flex>
+			    </v-layout>           
+           </v-card-text>    		
+      	</v-card>
+      </v-dialog>
+
 
 		</v-container>
 	</v-app>
@@ -46,6 +75,11 @@
 	.logo{
 		width:100%;
 		height:auto;
+	}
+	.thumbnails{
+		width:320px;
+		height:180px;
+		background-color: black;
 	}
 </style>
 

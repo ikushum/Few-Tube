@@ -7,7 +7,10 @@ var app = new Vue({
 			showPlayer: false,
 			searchKeyword: '',
 			searchResults: [],
-			showSearchResults: false
+			showSearchResults: false,
+			loading:false,
+			videoDialog: false,
+			currentVideo: {snippet:{}}
 		}
 	},
 	methods: {
@@ -16,31 +19,13 @@ var app = new Vue({
 			this.player = new YT.Player('player', {
 				height: '390',
 				width: '640',
-				videoId: 'M7lc1UVf-VE',
+				videoId: this.currentVideo.id.videoId,
 				events: {
 					'onReady': this.onPlayerReady,
 					'onStateChange': this.onPlayerStateChange
 				}
 			})
 		    console.log(this.player)
-		},
-		initGoogleApi () {
-		  gapi.client.init({
-		    'apiKey': 'YOUR_API_KEY',
-		    // clientId and scope are optional if auth is not required.
-		    'clientId': 'YOUR_WEB_CLIENT_ID.apps.googleusercontent.com',
-		    'scope': 'profile',
-		  }).then(function() {
-		    // 3. Initialize and make the API request.
-		    return gapi.client.request({
-		      'path': 'https://people.googleapis.com/v1/people/me?requestMask.includeField=person.names',
-		    })
-		  }).then(function(response) {
-		    console.log(response.result);
-		  }, function(reason) {
-		    console.log('Error: ' + reason.result.error.message);
-		  });
-
 		},
 		onPlayerReady(event) {
 		    event.target.playVideo()
@@ -56,6 +41,7 @@ var app = new Vue({
 		},
 		search() {			
 			let self = this
+			this.loading = true
 			let params = {
 				'maxResults': '25',
 				'part': 'snippet',
@@ -72,11 +58,24 @@ var app = new Vue({
 			  .then(function (response) {
 			  	self.showSearchResults = true
 			    self.searchResults = response.data.items
+			    self.loading = false
 			  })
 			  .catch(function (error) {
 			    console.log(error);
+			    self.loading = false
 			  });
-		}					
+		},
+		showVideo(video) {
+			this.videoDialog = true
+			this.currentVideo = video
+			this.enablePlayer()
+		},
+		hideVideo() {
+			this.videoDialog = false
+			this.currentVideo = {snippet:{}}
+			this.stopVideo()		
+			this.player = null	
+		}				
 	}
 })
 
