@@ -25,7 +25,6 @@ var app = new Vue({
 					'onStateChange': this.onPlayerStateChange
 				}
 			})
-		    console.log(this.player)
 		},
 		onPlayerReady(event) {
 		    event.target.playVideo()

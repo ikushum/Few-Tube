@@ -31,10 +31,10 @@
 
 		    <v-flex>
 		      <v-layout xs12 class="py-3 grey lighten-4 my-3" v-for="video in searchResults" :key="video.id.video" xs12>
-		      	<img @click="showVideo(video)" class="thumbnails" :src="video.snippet.thumbnails.medium.url">
+		      	<img class="pointer thumbnails" @click="showVideo(video)" :src="video.snippet.thumbnails.medium.url">
 		      	<v-flex class="pa-3">
-		      		<v-flex xs9 class="headline"><div @click="showVideo(video)">{{video.snippet.title}}</div></v-flex>
-		      		<v-flex class="subheading">Posted by: {{video.snippet.channelTitle}}</v-flex>
+		      		<v-flex xs9 class="headline pointer hover-text"><div @click="showVideo(video)">{{video.snippet.title}}</div></v-flex>
+		      		<v-flex class="subheading">{{video.snippet.channelTitle}}</v-flex>
 		      		<v-flex xs6 class=caption> {{video.snippet.description}}</v-flex>
 		      	</v-flex>
 		      </v-layout>
@@ -43,10 +43,9 @@
 
       <v-dialog
         v-model="videoDialog"
-        fullscreen
-        hide-overlay
         transition="dialog-bottom-transition"
-        scrollable
+        persistent
+        max-width="680px"
       >
       	<v-card>
           <v-toolbar card dark color="primary">
@@ -57,7 +56,7 @@
            </v-toolbar>  
            <v-card-text>
 			    <v-layout>
-			      <v-flex xs12>
+			      <v-flex>
 			    	<div id="player"></div>
 			      </v-flex>
 			    </v-layout>           
@@ -80,6 +79,13 @@
 		width:320px;
 		height:180px;
 		background-color: black;
+	}
+	.pointer{
+		cursor:pointer;
+	}
+	.hover-text:hover{
+		color:red;
+		transition: 0.5s;
 	}
 </style>
 
