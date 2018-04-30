@@ -3,7 +3,6 @@ var app = new Vue({
 	data: function () {
 		return {
 			player: null,
-			showPlayer: false,
 			searchKeyword: '',
 			searchResults: [],
 			showSearchResults: false,
@@ -14,7 +13,6 @@ var app = new Vue({
 	},
 	methods: {
 		enablePlayer () {
-			this.showPlayer = true
 			this.player = new YT.Player('player', {
 				height: '390',
 				width: '640',
@@ -70,8 +68,8 @@ var app = new Vue({
 		hideVideo() {
 			this.videoDialog = false
 			this.currentVideo = {snippet:{}}
-			this.stopVideo()		
-			this.player = null	
+			let self = this
+			setTimeout(function() {self.player.destroy()},500);			
 		}				
 	},
 	watch: {
@@ -80,4 +78,5 @@ var app = new Vue({
 		}		
 	}
 })
+
 
