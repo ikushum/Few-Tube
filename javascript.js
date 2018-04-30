@@ -77,6 +77,9 @@ var app = new Vue({
 	watch: {
 		searchKeyword(val) {
 			this.search()
+		},
+		videoDialog(val) {
+			if(val===false) this.hideVideo()
 		}		
 	}
 })

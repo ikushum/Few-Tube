@@ -7,8 +7,8 @@
 	height:auto;
 }
 .thumbnails{
-	width:320px;
-	height:180px;
+	width:100%;
+	height:auto;
 	background-color: black;
 }
 .pointer{

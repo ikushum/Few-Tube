@@ -15,47 +15,42 @@
 			<v-flex>
 
 				<v-flex xs12 md5 offset-xs1 offset-md3 class="text-xs-center">
-					<img :class="logoSize+' mb-3'" src="https://upload.wikimedia.org/wikipedia/commons/3/34/YouTube_logo_%282017%29.png">
+					<img :class="logoSize+' mb-4'" src="https://upload.wikimedia.org/wikipedia/commons/3/34/YouTube_logo_%282017%29.png">
 		    		<v-layout row class=mb-4>
+		    			<v-flex>
 			    		<v-text-field hide-details 
 			    					  prepend-icon="videocam"
 			    					  label="Search Video"
 			    					  v-model="searchKeyword"
-			    					  :loading="loading"
-			    		></v-text-field>	
+			    					  color="red"
+			    					  solo
+			    		></v-text-field>
+  						<v-progress-linear v-if="loading" height="3" class="ma-0" color="red" :indeterminate="true"></v-progress-linear>	
+  						</v-flex>		    			
 	    		    </v-layout>	
 		    	</v-flex>
 		
-			    <v-flex v-if="showSearchResults">
-			      <v-layout xs12 elevation-1 class="py-3 grey lighten-4 my-3" v-for="video in searchResults" :key="video.id.video" xs12>
-			      	<img class="pointer thumbnails" @click="showVideo(video)" :src="video.snippet.thumbnails.medium.url">
-			      	<v-flex class="pa-3">
-			      		<v-flex xs9 class="headline pointer hover-text"><div @click="showVideo(video)">{{video.snippet.title}}</div></v-flex>
-			      		<v-flex class="subheading">{{video.snippet.channelTitle}}</v-flex>
-			      		<v-flex xs6 class=caption> {{video.snippet.description}}</v-flex>
+			    <v-layout wrap v-if="showSearchResults">
+			      <v-flex xs6 v-for="video in searchResults" :key="video.id.video">
+			        <v-flex elevation-3 class="ma-3 white pa-3">
+				      	<img class="pointer thumbnails" @click="showVideo(video)" :src="video.snippet.thumbnails.medium.url">
+				      	<v-flex class="pa-3">
+				      		<v-flex class="headline pointer hover-text"><div @click="showVideo(video)">{{video.snippet.title}}</div></v-flex>
+				      		<v-flex class="subheading">{{video.snippet.channelTitle}}</v-flex>
+				      		<v-flex class=caption> {{video.snippet.description}}</v-flex>
+				      	</v-flex>
 			      	</v-flex>
-			      </v-layout>
-			    </v-flex>	
+			      </v-flex>
+			    </v-layout>	
 
 				<v-dialog
 					v-model="videoDialog"
 					transition="dialog-bottom-transition"
-					persistent
-					max-width="680px"
+					max-width="640px"
 				>
 					<v-card>
-					  <v-toolbar card dark color="primary">
-					    <v-btn icon @click.native="hideVideo()" dark>
-					      <v-icon>close</v-icon>
-					    </v-btn>
-					    <v-toolbar-title>{{currentVideo.snippet.title}}</v-toolbar-title>
-					   </v-toolbar>  
-					   <v-card-text>
-						    <v-layout>
-						      <v-flex>
-						    	<div id="player"></div>
-						      </v-flex>
-						    </v-layout>           
+					   <v-card-text class="pa-0">
+					    	<div id="player"></div>
 				   		</v-card-text>    		
 					</v-card>
 				</v-dialog>
