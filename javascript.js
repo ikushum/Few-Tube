@@ -8,7 +8,8 @@ var app = new Vue({
 			showSearchResults: false,
 			loading:false,
 			videoDialog: false,
-			currentVideo: {snippet:{}}
+			currentVideo: {snippet:{}},
+			logoSize: 'logo-big',
 		}
 	},
 	methods: {
@@ -51,6 +52,7 @@ var app = new Vue({
 			})			
 			  .then(function (response) {
 			  	self.showSearchResults = true
+			  	self.logoSize = 'logo-small'
 			    self.searchResults = response.data.items
 			    self.loading = false
 			  })
