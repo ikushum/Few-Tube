@@ -10,12 +10,12 @@
 
 <body>
 	<div id="app">
-	<v-app>
+	<v-app class="grey lighten-4">
 		<v-container fill-height>
-			<v-flex>
+			<v-flex>	
 
 				<v-flex xs12 md5 offset-xs1 offset-md3 class="text-xs-center">
-					<img :class="logoSize+' mb-4'" src="https://upload.wikimedia.org/wikipedia/commons/3/34/YouTube_logo_%282017%29.png">
+					<img @click="reset()" :class="logoSize+' mb-4 pointer'" src="https://upload.wikimedia.org/wikipedia/commons/3/34/YouTube_logo_%282017%29.png">
 		    		<v-layout row class=mb-4>
 		    			<v-flex>
 			    		<v-text-field hide-details 

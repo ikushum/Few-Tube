@@ -72,6 +72,11 @@ var app = new Vue({
 			this.currentVideo = {snippet:{}}
 			let self = this
 			setTimeout(function() {self.player.destroy()},500);			
+		},
+		reset() {
+			this.showSearchResults = false
+			this.logoSize="logo-big"
+			this.searchResults = []
 		}				
 	},
 	watch: {
